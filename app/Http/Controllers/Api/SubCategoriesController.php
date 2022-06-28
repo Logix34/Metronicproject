@@ -4,25 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class SubCategoriesController extends Controller
 {
 
     public function index()
     {
-        $users=Category::all();
+        $users=SubCategory::all();
         return response()->json([
             "status"      =>'Success',
             "data"        =>$users,
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
