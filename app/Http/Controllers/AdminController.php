@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -22,11 +26,7 @@ class AdminController extends Controller
         ]);
 
         try {
-            if (Auth::attempt(['username' => $request['email'], 'password' => $request['password']],)) {
-                Session::flash('success', 'Login Successfully');
-                return redirect('dashboard');
-            } elseif (Auth::attempt(['email' => $request['email'], 'password' => $request['password']], )) {
-
+           if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'] ,'user_type' => 1],)) {
                 Session::flash('success', 'Login Successfully');
                 return redirect('dashboard');
             } else {
@@ -38,14 +38,57 @@ class AdminController extends Controller
 
         }
     }
-
-
+//    //////////......LogIn with Facebook...............////////////
+//    public function redirectToFacebook(){
+//        return Socialite::driver('facebook')->redirect();
+//    }
+//    public function handleFacebookCallback(){
+//       $user= Socialite::driver('facebook')->user();
+//       // $user->token
+//    }
+//
+//    //////////...... Facebook callback ...............////////////
 
     public function dashboard()
     {
         return view('Admin.Dashboard');
     }
 
+    public function usersList(){
+        $users = User::whereUserType(2)->get();
+        return DataTables::of($users)
+            ->editColumn('created_at',function ($row){
+                return   Carbon::create($row->created_at)->format('Y-m-d');
+            })
+            ->addColumn('action',function ($users){
+                $button='';
+                if($users->status == "1"){
+                    $button.='<a type="button" href="'. url("change_status/".$users->id) .'" class="btn btn-danger">Suspended</a>';
+                }elseif($users->status == "0"){
+                    $button.='<a type="button" href="'. url("change_status/".$users->id) .'" class="btn btn-success">Active</a>';
+                }else{
+
+                }
+                return $button;
+            })->addColumn('status',function ($users){
+                return $users->status==='1'?"Active":"Suspended";
+            })->rawColumns(['action'])->make(true);
+    }
+        public function changeStatus($id){
+         $user= User::whereId($id)->first();
+          if($user->status == 1){
+              $user->update([
+                  'status' => 0,
+              ]);
+              Session::flash('success','Status Change Successfully');
+              return redirect('dashboard');
+          }elseif (($user->status == 0))
+              $user->update([
+                  'status' => 1,
+              ]);
+            Session::flash('success','Status Change Successfully');
+            return redirect('dashboard');
+        }
     public function logout(Request $request){
             Auth::logout();
         Session::flash('success','Logout Successfully');

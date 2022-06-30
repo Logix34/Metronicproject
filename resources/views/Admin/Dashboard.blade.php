@@ -17,4 +17,56 @@
         </div>
     </div>
     <!--end::Subheader-->
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <!--  Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"> Users List
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>first Name</th>
+                                        <th>last Name</th>
+                                        <th>Status</th>
+                                        <th>action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Main Content -->
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        var dt = $('#dataTable').DataTable( {
+            "processing": true,
+            "responsive": true,
+            "ordering": false,
+            "serverSide": true,
+            "ajax": "{{ url('/users_list')}}",
+            "columns": [
+                { "data": "first_name"},
+                { "data": "last_name" },
+                { "data": "status" },
+                { "data": "action",searchable: true,orderable: false }
+            ],
+            "order": [[1, 'Asc']]
+        } );
+    </script>
 @endsection

@@ -34,9 +34,7 @@ class UserController extends Controller
             'password'      =>'required|min:7',
         ]);
         try {
-
             $user= User::whereEmail($request->email)->first();
-
             if($user && Hash::check($request->password,$user->password) && $request->user_type== 1){
                 $token = $user->createToken("name")->plainTextToken;
                 return response()->json([
@@ -49,19 +47,18 @@ class UserController extends Controller
                     "status"     => 'Login failed',
                 ]);
             }
-        } catch (\Exception $e) {
+        }catch (\Exception $e) {
             return  $e->getMessage() . "on line" . $e->getLine();
 
         }
     }
 ///////////////////////.......SignUp Api Section........./////////////////////
-
     public function signUp(Request $request)
     {
         $request->validate([
             'first_name'     => 'required',
             'last_name'     => 'required',
-            'email'         => 'required|email|unique:users,email',
+            'email'         => 'required',
             'password'      => 'required|min:7',
             'device_name'   => 'required',
         ]);
@@ -70,19 +67,18 @@ class UserController extends Controller
             $extention = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extention;
             $profile_image= $file->move('uploads/profile_image/' , $filename);
-
         }
-        if($request['id'] == ""){
-            $user= User::create([
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'email' => $request['email'],
-                'profile_image' =>$profile_image,
-                'password' => Hash::make($request['password']),
-                'status'   =>1,
-                'user_type'=>2,
-            ]);
 
+        $user_data = [
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'profile_image' =>$profile_image,
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'user_type'=>2,
+        ];
+        if($user_data){
+            $user= User::create($user_data);
             Auth::login($user);
             $token = $request->user()->createToken($request->device_name)->plainTextToken;
             return  response()->json([
@@ -95,7 +91,6 @@ class UserController extends Controller
                 "status" =>'failed',
             ]);
         }
-
     }
 ///////////////////////.......forget Api........./////////////////////
 
@@ -103,11 +98,11 @@ class UserController extends Controller
             $request->validate([
                 'email' => 'required|exists:Users,email',
             ]);
-            $user= User::whereEmail($request->email);
-            if($user->first()) {
+                 $user_mail= User::whereEmail($request->email);
+                if($user_mail->first()) {
                 $code = rand(1001, 99999);
-                $user->update(['code'=> $code]);
-                Mail::to($user->first()->email)->send(new SignUp($code));
+                    $user_mail->update(['code'=> $code]);
+                Mail::to($user_mail->first()->email)->send(new SignUp($code));
                 return  response()->json([
                     "status" =>'success',
                     "mail_OTP" =>$code,

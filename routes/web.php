@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +26,17 @@ Route::post('verify_login',[AdminController::class,'login'])->name('verify_login
 
 Route::post('logout',[AdminController::class,'logout'])->name('logout');
 
-    Route::group(['middleware' => 'auth'], function () {
+//////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
+//Route::get('/login/facebook',[AdminController::class,'redirectToFacebook'])->name('login.facebook');
+//Route::get('/login/facebook/callback',[AdminController::class,'handleFacebookCallback']);
+//////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
+Route::group(['middleware' => 'auth'], function () {
 
         Route::get('dashboard',[AdminController::class,'dashboard'])->name('dashboard');
-        //////////////////////////.......Category Section .........../////////
+        Route::get('users_list',[AdminController::class,'usersList'])->name('usersList');
+    Route::get('change_status/{id}', [AdminController::class,'changeStatus'])->name('changeStatus');
+
+    //////////////////////////.......Category Section .........../////////
         Route::get('categories',[CategoryController::class,'index'])->name('categories');
         Route::get('edit/category/{id}', [CategoryController::class,'editCategory'])->name('edit/category');
         Route::post('add_Categories',[CategoryController::class,'store'])->name('add_Categories');
