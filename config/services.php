@@ -33,6 +33,6 @@ return [
     'facebook' => [
         'client_id' => '601387871321363',
         'client_secret' => '1a08d4ca9895a73726e8c8f28b4a5a0d',
-        'redirect' => 'https://localhost/Metronicproject/public/login/facebook/callback',
+        'redirect' => 'https://localhost/Myproject/MetronicProjectModal/public/login/facebook/callback',
     ],
 ];

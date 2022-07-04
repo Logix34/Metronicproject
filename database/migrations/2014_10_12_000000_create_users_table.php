@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('user_name');
             $table->string('profile_image');
+            $table->string('social_id')->nullable();
             $table->string('code')->nullable();
             $table->string('status')->nullable()->default(1);
             $table->string('user_type');

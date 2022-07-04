@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Yajra\DataTables\DataTables;
@@ -37,25 +38,43 @@ class AdminController extends Controller
 
         }
     }
-//    //////////......LogIn with Facebook...............////////////
+   //////////......LogIn with Facebook...............////////////
+
     public function redirectToFacebook(){
         return Socialite::driver('facebook')->redirect();
     }
     public function handleFacebookCallback(){
       $user=Socialite::driver('facebook')->user();
-         $social_media_id = $user->getId();
+        $social_media_id = $user->getId();
         $name = $user->getName();
+         $nick_name = $user->getNickname();
         $email = $user->getEmail();
-         response()->json([
-            'id'=>$social_media_id,
-            'name' =>$name,
-            'email' =>$email,
+        $avator=$user->getAvatar();
+
+       $user_data=([
+            'first_name'=>$name,
+           'last_name'=>$nick_name,
+           'email'=> $email,
+            'profile_image'=>$avator,
+            'social_id'=>$social_media_id,
+            'user_type'=>2,
+           'password' => Hash::make(rand(1001,99999)),
         ]);
-        Auth::login($user);
-        Session::flash('success','Status Change Successfully');
-        return redirect('dashboard');
-       // $user->token
+
+       $user=User::whereSocialId($social_media_id)->first();
+       if(!$user){
+           $new_users=User::create($user_data);
+           Auth::login($new_users);
+           Session::flash('success', 'Login Successfully');
+           return redirect('dashboard');
+       }else{
+           Auth::login($user);
+           Session::flash('success', 'Login Successfully');
+           return redirect('dashboard');
+       }
+
     }
+
 //    //////////...... Facebook callback ...............////////////
 
     public function dashboard()
@@ -66,6 +85,7 @@ class AdminController extends Controller
     public function privacy(){
         return view('Privacy.index');
     }
+
     public function usersList(){
         $users = User::whereUserType(2)->get();
         return DataTables::of($users)

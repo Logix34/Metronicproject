@@ -130,6 +130,23 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{asset('assets/js/FormValidation.js')}}"></script>
 <!--end::Page Scripts-->
+<script>
+    @if(Session::has('error'))
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    Toast.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '{{Session::get('error')}}',
+        showConfirmButton: false,
+        timer: 3000,
+    });
+    @endif
+</script>
 </body>
 <!--end::Body-->
 </html>
