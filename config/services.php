@@ -31,8 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'http://127.0.0.1:8000/login/facebook/callback',
+        'client_id' => '601387871321363',
+        'client_secret' => '1a08d4ca9895a73726e8c8f28b4a5a0d',
+        'redirect' => 'https://localhost/Metronicproject/public/login/facebook/callback',
     ],
 ];

@@ -24,7 +24,6 @@ class AdminController extends Controller
             'password' => 'required|min:7',
 
         ]);
-
         try {
            if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'] ,'user_type' => 1],)) {
                 Session::flash('success', 'Login Successfully');
@@ -39,14 +38,24 @@ class AdminController extends Controller
         }
     }
 //    //////////......LogIn with Facebook...............////////////
-//    public function redirectToFacebook(){
-//        return Socialite::driver('facebook')->redirect();
-//    }
-//    public function handleFacebookCallback(){
-//       $user= Socialite::driver('facebook')->user();
-//       // $user->token
-//    }
-//
+    public function redirectToFacebook(){
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function handleFacebookCallback(){
+      $user=Socialite::driver('facebook')->user();
+         $social_media_id = $user->getId();
+        $name = $user->getName();
+        $email = $user->getEmail();
+         response()->json([
+            'id'=>$social_media_id,
+            'name' =>$name,
+            'email' =>$email,
+        ]);
+        Auth::login($user);
+        Session::flash('success','Status Change Successfully');
+        return redirect('dashboard');
+       // $user->token
+    }
 //    //////////...... Facebook callback ...............////////////
 
     public function dashboard()
@@ -54,6 +63,9 @@ class AdminController extends Controller
         return view('Admin.Dashboard');
     }
 
+    public function privacy(){
+        return view('Privacy.index');
+    }
     public function usersList(){
         $users = User::whereUserType(2)->get();
         return DataTables::of($users)

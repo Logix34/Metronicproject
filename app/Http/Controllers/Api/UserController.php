@@ -113,7 +113,7 @@ class UserController extends Controller
                 ]);
             }
         }
-    ///////////////////////.......forget Api Section........./////////////////////
+    ///////////////////////.......Reset Api Section........./////////////////////
     public function reset(Request $request){
         $request->validate([
             'code' => 'required|exists:Users,code',

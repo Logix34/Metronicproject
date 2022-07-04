@@ -32,11 +32,6 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{asset('assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Global Theme Styles-->
-    <!--begin::Layout Themes(used by all pages)-->
-    <link href="{{asset('assets/css/themes/layout/header/base/light.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
 </head>
 <!--end::Head-->
@@ -96,6 +91,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
                             <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+                            <a type="button" href="{{url('/login/facebook')}}" class="btn btn-primary">Login with FaceBook</a>
+
                         </div>
                         <!--end::Action-->
                     </form>

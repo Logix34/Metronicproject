@@ -20,18 +20,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
-Route::get('login',[AdminController::class,'index'])->name('login') ;
+Route::get('login',[AdminController::class, 'index'])->name('login') ;
 
 Route::post('verify_login',[AdminController::class,'login'])->name('verify_login');
 
 Route::post('logout',[AdminController::class,'logout'])->name('logout');
 
 //////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
-//Route::get('/login/facebook',[AdminController::class,'redirectToFacebook'])->name('login.facebook');
-//Route::get('/login/facebook/callback',[AdminController::class,'handleFacebookCallback']);
+Route::get('/login/facebook',[AdminController::class,'redirectToFacebook'])->name('login.facebook');
+Route::get('/login/facebook/callback',[AdminController::class,'handleFacebookCallback']);
+Route::get('privacy',[AdminController::class,'privacy'])->name('privacy');
+
 //////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
 Route::group(['middleware' => 'auth'], function () {
-
         Route::get('dashboard',[AdminController::class,'dashboard'])->name('dashboard');
         Route::get('users_list',[AdminController::class,'usersList'])->name('usersList');
     Route::get('change_status/{id}', [AdminController::class,'changeStatus'])->name('changeStatus');

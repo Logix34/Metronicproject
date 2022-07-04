@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>first Name</th>
                                         <th>last Name</th>
+                                        <th>Email</th>
                                         <th>Status</th>
                                         <th>action</th>
                                     </tr>
@@ -63,6 +64,7 @@
             "columns": [
                 { "data": "first_name"},
                 { "data": "last_name" },
+                { "data": "email" },
                 { "data": "status" },
                 { "data": "action",searchable: true,orderable: false }
             ],
