@@ -35,4 +35,9 @@ return [
         'client_secret' => '1a08d4ca9895a73726e8c8f28b4a5a0d',
         'redirect' => 'https://localhost/Myproject/MetronicProjectModal/public/login/facebook/callback',
     ],
+    'google' => [
+        'client_id' => '148822435030-2gjcoe787elrvjp065jvg5kte5mgnpns.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost/Myproject/MetronicProjectModal/public/login/Google/callback',
+    ],
 ];

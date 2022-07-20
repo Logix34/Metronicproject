@@ -34,6 +34,7 @@ class UserController extends Controller
             'email' => 'required|exists:Users,email',
             'password'      =>'required|min:7',
         ]);
+
         try {
             $user= User::whereEmail($request->email)->first();
             if($user && Hash::check($request->password,$user->password) && $request->user_type== 1){

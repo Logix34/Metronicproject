@@ -47,13 +47,13 @@ class AdminController extends Controller
       $user=Socialite::driver('facebook')->user();
         $social_media_id = $user->getId();
         $name = $user->getName();
-         $nick_name = $user->getNickname();
+        $full_name= explode(' ',$name);
         $email = $user->getEmail();
         $avator=$user->getAvatar();
 
        $user_data=([
-            'first_name'=>$name,
-           'last_name'=>$nick_name,
+           'first_name'=>$full_name[0],
+           'last_name'=>$full_name[1],
            'email'=> $email,
             'profile_image'=>$avator,
             'social_id'=>$social_media_id,
@@ -72,10 +72,43 @@ class AdminController extends Controller
            Session::flash('success', 'Login Successfully');
            return redirect('dashboard');
        }
-
     }
 
 //    //////////...... Facebook callback ...............////////////
+
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+         $social_media_id = $user->getId();
+        $name = $user->getName();
+       $full_name= explode(' ',$name);
+        $email = $user->getEmail();
+        $avator=$user->getAvatar();
+
+        $user_data=([
+            'first_name'=>$full_name[0],
+            'last_name'=>$full_name[1],
+            'email'=> $email,
+            'profile_image'=>$avator,
+            'social_id'=>$social_media_id,
+            'user_type'=>2,
+            'password' => Hash::make(rand(1001,99999)),
+        ]);
+        $user=User::whereSocialId($social_media_id)->first();
+        if(!$user){
+            $new_users=User::create($user_data);
+            Auth::login($new_users);
+            Session::flash('success', 'Login Successfully');
+            return redirect('dashboard');
+        }else{
+            Auth::login($user);
+            Session::flash('success', 'Login Successfully');
+            return redirect('dashboard');
+        }
+    }
 
     public function dashboard()
     {

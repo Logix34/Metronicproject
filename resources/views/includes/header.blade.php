@@ -17,8 +17,8 @@
                 <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                     <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">{{Auth::user()->first_name}}{{Auth::user()->last_name}}</span>
                     <span class="symbol symbol-lg-35 symbol-25">
-											<img src="{{ !empty(Auth::user()->profile_image)?asset(Auth::user()->profile_image):asset("assets/dist/img/avatar5.png") }}" alt="User_image" class="symbol-label" ></img>
-										</span>
+						<img src="{{ !empty(Auth::user()->profile_image)?asset(Auth::user()->profile_image):asset("assets/dist/img/avatar5.png") }}" alt="User_image" class="symbol-label" ></img>
+					</span>
                 </div>
             </div>
             <!--end::User-->
@@ -47,9 +47,9 @@
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
+                <a  class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
                 <div class="navi mt-2">
-                    <a href="#" class="navi-item">
+                    <a class="navi-item">
 								<span class="navi-link p-0 pb-2">
 									<span class="navi-icon mr-1">
 										<span class="svg-icon svg-icon-lg svg-icon-primary">

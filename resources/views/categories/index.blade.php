@@ -158,7 +158,6 @@
 
         function editCategory(id)
         {
-
             $.ajax({
                 url:"{{ url('edit/category') }}"+"/"+id,
                 success:function (data) {

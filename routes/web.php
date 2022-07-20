@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+////////////////////////////Begin: public Routes............//////////////////////////////////////
 Route::get('/', function () {
     return view('login');
 });
@@ -26,12 +26,22 @@ Route::post('verify_login',[AdminController::class,'login'])->name('verify_login
 
 Route::post('logout',[AdminController::class,'logout'])->name('logout');
 
-//////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
+////////Begin: socialite facebook Route............///////
 Route::get('/login/facebook',[AdminController::class,'redirectToFacebook'])->name('login.facebook');
 Route::get('/login/facebook/callback',[AdminController::class,'handleFacebookCallback']);
 Route::get('privacy',[AdminController::class,'privacy'])->name('privacy');
 
-//////////////////////////Begin: socialite facebook Route............//////////////////////////////////////
+////end: socialite facebook Route............///////////////////
+
+///////Begin: socialite Google Route............///////////////
+    Route::get('/login/google',[AdminController::class,'redirectToGoogle'])->name('login.facebook');
+    Route::get('/login/Google/callback',[AdminController::class,'handleGoogleCallback']);
+    Route::get('google_privacy',[AdminController::class,'privacy'])->name('privacy');
+///////END: socialite Google Route............/////////////////
+
+/////////end: Public Routes............///////
+
+////////Begin: protected Routes............///
 Route::group(['middleware' => 'auth'], function () {
         Route::get('dashboard',[AdminController::class,'dashboard'])->name('dashboard');
         Route::get('users_list',[AdminController::class,'usersList'])->name('usersList');
@@ -52,3 +62,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('update_subcategories',[SubcategoriesController::class,'update'])->name('update_subcategories');
         Route::get('delete_subCategory/{id}',[SubcategoriesController::class,'destroy'])->name('delete');
     });
+//////////////////////////end: Protected Routes............//////////////////////////////////////

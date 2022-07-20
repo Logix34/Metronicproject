@@ -38,7 +38,7 @@
         <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
             <h3 class="font-weight-bold m-0">User Profile
                 <small class="text-muted font-size-sm ml-2"></small></h3>
-            <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
+            <a  class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
                 <i class="ki ki-close icon-xs text-muted"></i>
             </a>
         </div>
@@ -47,12 +47,7 @@
             <button  href="#" onclick="document.getElementById('logout-form').submit()" data-toggle="modal" class="btn btn-primary" data-target="#logoutModal" type="submit"> Logout</button>
         </form>
     </div>
-
-
         <!--end::Header-->
-        <!--begin::Content-->
-    </div>
-        <!--end::Content-->
     <!-- end::User Panel-->
 <!--end::Page-->
 
