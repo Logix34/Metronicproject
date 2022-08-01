@@ -47,9 +47,21 @@
                                     @foreach($subcategories as $subcategory)
                                         <tr>
                                             <td>{{$subcategory->name}}</td>
-                                            <td>{{$subcategory->category->name}}</td>
-                                            <td><img src="{{asset($subcategory->banner_image)}}" height="150px" width="150px" class="ml-5"></td>
-                                            <td><img src="{{$subcategory->square_image}}" height="150px" width="150px" class="ml-5"></td>
+                                            <td>{{$subcategory->category->name ? $subcategory->category->name:'NA'}}</td>
+                                            <td>
+                                                @if($subcategory->banner_image == null)
+                                                    <p class="text-danger">Image not Uploaded</p>
+                                                @else
+                                                    <img src="{{asset($subcategory->banner_image)}}" height="100" width="100">
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($subcategory->square_image == null)
+                                                    <p class="text-danger">Image not Uploaded</p>
+                                                @else
+                                                    <img src="{{asset($subcategory->square_image)}}" height="100" width="100">
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a class="btn btn-sm" onclick="editCategory({{$subcategory->id}})"><i class="fas fa-edit"></i></a>
                                                 <a class="btn  delete btn-sm"  href="{{url('delete_subCategory/' .$subcategory->id) }}"><i class="fas fa-trash-alt"></i></a>
@@ -78,25 +90,23 @@
                     @csrf
                     <div class="modal-body mx-3">
                         <div class="form-group">
-                            <label for="name">Your name</label>
+                            <label class="font-size-h6 font-weight-bolder text-dark" for="name">Your name</label>
                             <input type="text" id="name" name="name"  placeholder="Enter Your Name" class="form-control validate">
                         </div>
                         <div class="form-group">
-                            <label for="name">Category</label>
+                            <label class="font-size-h6 font-weight-bolder text-dark" for="name">Category</label>
                             <select class="form-control" name="category_id" id="category_id">
-                                {{$categories}}
                                 @foreach($categories as $category)
                                     <option {{ isset($detail->category_id)&&$detail->category_id == $category->name?'selected':"" }} value="{{ $category->id }}">{{ $category->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="banner_image">Banner Image</label>
+                            <label class="font-size-h6 font-weight-bolder text-dark" for="banner_image">Banner Image</label>
                             <input type="file" id="banner_image"  class="form-control validate" name="banner_image" placeholder="banner_image">
-
                         </div>
                         <div class="form-group">
-                            <label  for="square_image">Square Image</label>
+                            <label class="font-size-h6 font-weight-bolder text-dark"  for="square_image">Square Image</label>
                             <input type="file" id="square_image" name="square_image" placeholder="square_image" class="form-control validate">
                         </div>
                         <div class=" d-flex justify-content-center">
@@ -128,7 +138,7 @@
                             <input type="text" id="subcategory_name" name="name"  placeholder="Enter Your Name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="name">Category</label>
+                            <label class="font-size-h6 font-weight-bolder text-dark" for="name">Category</label>
                             <select class="form-control" name="category_id" id="editcategory_id">
                                 {{$categories}}
                                 @foreach($categories as $category)
@@ -183,7 +193,6 @@
                 url:"{{ url('edit/subcategory') }}"+"/"+id,
                 success:function (data) {
                     $("#subcategory_id").val(data.id);
-                    console.log(data.id);
                     $("#subcategory_name").val(data.name);
                     $("#editcategory_id").val(data.category_id);
                     $("#edit_banner_image").attr("src",data.banner_image);

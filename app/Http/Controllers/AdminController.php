@@ -58,7 +58,7 @@ class AdminController extends Controller
             'profile_image'=>$avator,
             'social_id'=>$social_media_id,
             'user_type'=>2,
-           'password' => Hash::make(rand(1001,99999)),
+           'password' => Hash::make(rand(100,999999999999)),
         ]);
 
        $user=User::whereSocialId($social_media_id)->first();
@@ -128,7 +128,7 @@ class AdminController extends Controller
             ->addColumn('action',function ($users){
                 $button='';
                 if($users->status == "1"){
-                    $button.='<a type="button" href="'. url("change_status/".$users->id) .'" class="btn btn-danger">Suspended</a>';
+                    $button.='<a type="button" href="'. url("change_status/".$users->id) .'" class="btn btn-danger">Suspend</a>';
                 }elseif($users->status == "0"){
                     $button.='<a type="button" href="'. url("change_status/".$users->id) .'" class="btn btn-success">Active</a>';
                 }else{
@@ -136,7 +136,7 @@ class AdminController extends Controller
                 }
                 return $button;
             })->addColumn('status',function ($users){
-                return $users->status==='1'?"Active":"Suspended";
+                return $users->status==='1'?"Active":"Suspend";
             })->rawColumns(['action'])->make(true);
     }
         public function changeStatus($id){

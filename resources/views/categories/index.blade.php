@@ -63,8 +63,6 @@
                 </div>
             </div>
         </div>
-
-
     <!-- /////////////////////////////////////////...........create model Category form ..........////////////////-->
     <div class="modal fade" id="modalCategoryForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">

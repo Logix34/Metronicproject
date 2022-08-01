@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('profile_image');
             $table->string('social_id')->nullable();
             $table->string('code')->nullable();
+            $table->string('is_premium')->nullable();
             $table->string('status')->nullable()->default(1);
             $table->string('user_type');
             $table->string('email')->unique();

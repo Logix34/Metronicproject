@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SignUp;
-use App\Models\Upload;
 use App\Models\User;
+use App\Rules\IsValidPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,7 +61,12 @@ class UserController extends Controller
             'first_name'     => 'required',
             'last_name'     => 'required',
             'email'         => 'required',
-            'password'      => 'required|min:7',
+            'profile_image' => 'required',
+            'password' => [
+                                'required',
+                                'string',
+                                new isValidPassword(),
+                            ],
             'device_name'   => 'required',
         ]);
         if ($request->hasFile('profile_image')) {

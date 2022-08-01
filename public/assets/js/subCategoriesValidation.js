@@ -26,24 +26,10 @@ var KTLogin = function() {
                                 }
                             }
                         },
-                        banner_image: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'Banner Image is required'
-                                }
-                            }
-                        },
                         category_id: {
                             validators: {
                                 notEmpty: {
                                     message: 'Category is required'
-                                }
-                            }
-                        },
-                        square_image: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'Square Image is required'
                                 }
                             }
                         },
