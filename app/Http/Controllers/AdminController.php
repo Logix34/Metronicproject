@@ -74,8 +74,9 @@ class AdminController extends Controller
        }
     }
 
-//    //////////...... Facebook callback ...............////////////
+//    //////////...... End Facebook callback ...............////////////
 
+      //////////......LogIn with Google...............////////////
     public function redirectToGoogle(){
         return Socialite::driver('google')->redirect();
     }
@@ -86,7 +87,7 @@ class AdminController extends Controller
         $name = $user->getName();
        $full_name= explode(' ',$name);
         $email = $user->getEmail();
-        $avator=$user->getAvatar();
+        $social_media_avator=$user->getAvatar();
 
         $user_data=([
             'first_name'=>$full_name[0],
@@ -109,7 +110,7 @@ class AdminController extends Controller
             return redirect('dashboard');
         }
     }
-
+/////////...... End Google callback ...............////////////
     public function dashboard()
     {
         return view('Admin.Dashboard');
