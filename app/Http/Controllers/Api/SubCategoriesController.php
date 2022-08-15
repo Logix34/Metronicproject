@@ -12,34 +12,24 @@ class SubCategoriesController extends Controller
 
     public function index()
     {
-        $users=SubCategory::all();
+        $users=SubCategory::with('category')->get();
         return response()->json([
             "status"      =>'Success',
             "data"        =>$users,
         ]);
     }
-    public function create()
-    {
-        //
+
+
+
+    public function subcateegoryByParent(Request $request){
+        $validator=\Validator::make($request->all(),[
+            'parent_id' => 'required|categories:exists,id'
+        ]);
+        if ($validator->fails()){
+
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

@@ -70,5 +70,22 @@
             ],
             "order": [[1, 'Asc']]
         } );
+
+        $(function()
+        {
+            function timeChecker(){
+                setInterval(function ()
+                {
+                    var storedTimeStamp = sessionStorage.getItem("lastTimeStamp");
+                },3000);
+            }
+            $(document).mousemove(function ()
+            {
+                var timeStamp = new Date();
+                sessionStorage.setItem("lastTimeStamp",timeStamp);
+            });
+            timeChecker();
+        });
+
     </script>
 @endsection

@@ -24,7 +24,6 @@ class UserController extends Controller
         ]);
     }
 
-
 ///////////////////////.......Login Api Section........./////////////////////
 
     public function login(Request $request)
@@ -37,7 +36,7 @@ class UserController extends Controller
 
         try {
             $user= User::whereEmail($request->email)->first();
-            if($user && Hash::check($request->password,$user->password) && $request->user_type== 1){
+            if($user && Hash::check($request->password,$user->password) && $request->user_type== 2){
                 $token = $user->createToken("name")->plainTextToken;
                 return response()->json([
                     "status"      =>'Login Successfully',

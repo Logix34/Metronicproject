@@ -47,7 +47,10 @@
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a  class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
+                <a  class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+                    {{Auth::user()->first_name}}
+                     {{Auth::user()->last_name}}
+                </a>
                 <div class="navi mt-2">
                     <a class="navi-item">
 								<span class="navi-link p-0 pb-2">
@@ -64,7 +67,7 @@
                                             <!--end::Svg Icon-->
 										</span>
 									</span>
-									<span class="navi-text text-muted text-hover-primary">{{Auth::user()->email}}</span>
+									<span class="navi-text text-muted text-hover-primary" style="font-size:11.7px;">{{Auth::user()->email}}</span>
 								</span>
                     </a>
                     <form action="{{route('logout')}}" method="POST" id="logout-form">

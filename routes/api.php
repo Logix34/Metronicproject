@@ -18,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login',[UserController::class,'login']);
-Route::post('signUp',[UserController::class,'signUp']);
+Route::post('signup',[UserController::class,'signUp']);
 Route::post('forget',[UserController::class,'forget']);
 Route::post('reset',[UserController::class,'reset']);
 
 
-Route::get('dashboard',[UserController::class,'index'])->middleware('auth:sanctum');
+Route::get('users',[UserController::class,'index'])->middleware('auth:sanctum');
 Route::get('categories',[CategoriesController::class,'index'])->middleware('auth:sanctum');
 Route::get('sub_categories',[SubCategoriesController::class,'index'])->middleware('auth:sanctum');
+Route::get('sub_categories/{parent_id}',[SubCategoriesController::class,'subcategoryByParent'])->middleware('auth:sanctum');
 Route::post('update',[UserController::class,'update'])->middleware('auth:sanctum');

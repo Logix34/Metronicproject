@@ -31,8 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => '601387871321363',
-        'client_secret' => '1a08d4ca9895a73726e8c8f28b4a5a0d',
+        'client_id' => '451237439986178',
+        'client_secret' => '127b8da68b73a990db216bc541597446',
         'redirect' => 'https://localhost/Myproject/MetronicProjectModal/public/login/facebook/callback',
     ],
     'google' => [

@@ -74,7 +74,7 @@ class AdminController extends Controller
        }
     }
 
-//    //////////...... End Facebook callback ...............////////////
+    //////////...... End Facebook callback ...............////////////
 
       //////////......LogIn with Google...............////////////
     public function redirectToGoogle(){
@@ -87,7 +87,7 @@ class AdminController extends Controller
         $name = $user->getName();
        $full_name= explode(' ',$name);
         $email = $user->getEmail();
-        $social_media_avator=$user->getAvatar();
+        $avator=$user->getAvatar();
 
         $user_data=([
             'first_name'=>$full_name[0],
